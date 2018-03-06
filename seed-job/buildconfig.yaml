@@ -6,6 +6,7 @@ spec:
     source:
         git:
             uri: https://github.com/dharmit/ccp-openshift
+            ref: seed-job
     strategy:
         jenkinsPipelineStrategy:
             jenkinsfilePath: seed-job/Jenkinsfile
