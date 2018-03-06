@@ -1,0 +1,13 @@
+pipeline{
+    agent   {label 'base'}
+
+    stages {
+
+        stage ('parse'){
+            steps{
+                git url: "https://github.com/dharmit/ccp-openshift-index"
+                python seed-job/parse-index-entries.py
+            }
+        }
+    }
+}
