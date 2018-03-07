@@ -1,13 +1,34 @@
-pipeline{
-    agent   {label 'base'}
-
-    stages {
-
-        stage ('parse'){
-            steps{
-                git url: "https://github.com/dharmit/ccp-openshift-index"
-                python seed-job/parse-index-entries.py
-            }
-        }
+pipeline {
+  agent any
+  stages {
+    stage('Checkout SCM') {
+      steps {
+        checkout scm
+      }
     }
+    stage('Checkout sources') {
+      steps {
+        checkout([
+          $class: 'GitSCM',
+          branches: [[name: "${CONTAINER_INDEX_BRANCH}"]],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [
+            [$class: 'RelativeTargetDirectory', relativeTargetDir: ${PIPELINE_TARGET_DIR}]
+          ],
+          submoduleCfg: [],
+          userRemoteConfigs: [
+            [url: "${CONTAINER_INDEX_LOCATION}"]
+          ]
+        ])
+         }
+    }
+        stage('Show Files') {
+      steps {
+        sh "ls -l"
+        dir("${PIPELINE_TARGET_DIR}") {
+          sh "ls -l"
+        }
+      }
+    }
+  }
 }
