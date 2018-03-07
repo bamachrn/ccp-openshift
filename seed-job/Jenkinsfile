@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-        label 'promotion-slave'
+        label 'seed-slave'
         cloud 'openshift'
         serviceAccount 'jenkins'
         containerTemplate {
