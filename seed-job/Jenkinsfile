@@ -13,7 +13,7 @@ pipeline {
           branches: [[name: "${CONTAINER_INDEX_BRANCH}"]],
           doGenerateSubmoduleConfigurations: false,
           extensions: [
-            [$class: 'RelativeTargetDirectory', relativeTargetDir: ${PIPELINE_TARGET_DIR}]
+            [$class: 'RelativeTargetDirectory', relativeTargetDir: "${PIPELINE_TARGET_DIR}"]
           ],
           submoduleCfg: [],
           userRemoteConfigs: [
