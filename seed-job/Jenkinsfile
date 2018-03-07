@@ -1,5 +1,19 @@
 pipeline {
-  agent any
+  agent {
+    kubernetes {
+        label 'promotion-slave'
+        cloud 'openshift'
+        serviceAccount 'jenkins'
+        containerTemplate {
+          name 'jnlp'
+          image "registry.centos.org/openshift/jenkins-slave-base-centos7"
+          alwaysPullImage true
+          workingDir '/tmp'
+          args '${computer.jnlpmac} ${computer.name}'
+          ttyEnabled false
+       }
+    }
+  }
   stages {
     stage('Checkout SCM') {
       steps {
