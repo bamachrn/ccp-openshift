@@ -6,13 +6,13 @@ spec:
   source:
     type: Git
     git:
-      uri: ${PIPELINE_REPOSITORY_URL}
-      ref: ${PIPELINE_REPOSITORY_REF}
-    contextDir: ${PIPELINE_REPOSITORY_CONTEXT_DIR}
-strategy:
-  type: "JenkinsPipeline"
-  jenkinsPipelineStrategy:
-    jenkinsfilePath: ${PIPELINE_SCRIPT}
+      uri: "https://github.com/dharmit/ccp-openshift"
+      ref: "seed-job"
+    contextDir: "seed-job"
+  strategy:
+    type: "JenkinsPipeline"
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: "Jenkinsfile"
       env:
       - name: CONTAINER_INDEX_LOCATION
         value: https://github.com/dharmit/ccp-openshift-index
@@ -20,3 +20,5 @@ strategy:
         value: master
       - name: PIPELINE_TARGET_DIR
         value: "source"
+  triggers:
+      - type: ConfigChange
