@@ -48,7 +48,8 @@ for entry in yml_dict["Projects"]:
 
     # there's gotta be a better way to ensure that buildconfigs created by
     # parsing the yaml file get triggered automatically for first run.
-    oc_build = "oc start-build {} -n {}".format(pipeline_name, sys.argv[3])
+    # oc_build = "oc start-build {} -n {}".format(pipeline_name, sys.argv[3])
 
     with open("projects.sh", "a+") as f:
-        f.write("{} {} && {} \n".format(command, oc_apply, oc_build))
+        f.write("{} {} \n".format(command, oc_apply))
+        # f.write("{} {} && {} \n".format(command, oc_apply, oc_build))
